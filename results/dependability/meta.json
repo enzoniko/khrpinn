@@ -1,0 +1,9 @@
+{
+  "experiment": "dependability",
+  "date": "2026-07-06T15:01:13-03:00",
+  "host": "Linux 6.6.87.2-microsoft-standard-WSL2 x86_64",
+  "steps": 2000,
+  "divergence_threshold_normalized_l2": 0.1,
+  "ics": "data/goldens/ics.csv (20 ICs, uniform [-1.5,1.5]^2, seed 7)",
+  "notes": "err_norm is L2 in the normalized state domain; ref=f32 isolates quantization effects, ref=truth measures total model error."
+}

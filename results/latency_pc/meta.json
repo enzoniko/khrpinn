@@ -1,0 +1,10 @@
+{
+  "experiment": "latency_pc",
+  "date": "2026-07-06T15:00:37-03:00",
+  "host": "Linux 6.6.87.2-microsoft-standard-WSL2 x86_64",
+  "cpu": "Intel(R) Core(TM) i7-14700",
+  "compiler_flags": "-std=c++17 -O2 -ffp-contract=off (see cpp/Makefile)",
+  "rounds": 3, "reps_per_round": 10, "iters_per_rep": 100000,
+  "pinning": "taskset -c 0",
+  "notes": "WSL2/PC numbers contextualize the board results; the RISC-V board run is authoritative for the paper."
+}
