@@ -33,6 +33,29 @@ inline void eval_bases(const float* g, uint32_t G, uint32_t k, float x, float* b
     }
 }
 
+// Optimized basis evaluation: multiply by precomputed knot-difference
+// reciprocals instead of dividing (grid is frozen at inference, so a real
+// deployment would do this). Numerics differ from kan.py by ~1 ulp per op —
+// used ONLY by the benchmark's --recip variant to quantify how much of the
+// KAN latency is division cost (fairness/anti-strawman check).
+inline void eval_bases_recip(const float* g, const float* recips, uint32_t G,
+                             uint32_t k, float x, float* bas) {
+    const uint32_t m = G + 2 * k;
+    for (uint32_t j = 0; j < m; ++j)
+        bas[j] = (x >= g[j] && x < g[j + 1]) ? 1.0f : 0.0f;
+    size_t off = 0;
+    for (uint32_t r = 1; r <= k; ++r) {
+        const uint32_t n = m - r;
+        const float* R = recips + off;  // R[j] = 1/(g[j+r]-g[j])
+        for (uint32_t j = 0; j < n; ++j) {
+            const float left = (x - g[j]) * R[j] * bas[j];
+            const float right = (g[j + r + 1] - x) * R[j + 1] * bas[j + 1];
+            bas[j] = left + right;
+        }
+        off += m - r + 1;
+    }
+}
+
 struct Workspace {
     std::vector<float> act_a, act_b;  // activation ping-pong buffers
     std::vector<float> silu_buf;      // per-layer SiLU(x) values
@@ -48,14 +71,21 @@ struct Workspace {
 };
 
 // One KANLinear layer: y[out] = base_w * SiLU(x) + spline_w * B(x).
+// use_recip selects the precomputed-reciprocal basis path (bench-only).
 inline void kan_layer_forward(const KanLayer& L, const float* x, float* y,
-                              float* silu_buf, float* bases_buf) {
+                              float* silu_buf, float* bases_buf,
+                              bool use_recip = false) {
     const uint32_t nb = L.n_bases();
     const uint32_t stride = L.n_bases0();
     for (uint32_t i = 0; i < L.in; ++i) {
         silu_buf[i] = silu(x[i]);
-        eval_bases(L.grid.data() + (size_t)i * L.n_knots(), L.G, L.k, x[i],
-                   bases_buf + (size_t)i * stride);
+        if (use_recip)
+            eval_bases_recip(L.grid.data() + (size_t)i * L.n_knots(),
+                             L.recip.data() + (size_t)i * L.recip_stride(),
+                             L.G, L.k, x[i], bases_buf + (size_t)i * stride);
+        else
+            eval_bases(L.grid.data() + (size_t)i * L.n_knots(), L.G, L.k, x[i],
+                       bases_buf + (size_t)i * stride);
     }
     for (uint32_t u = 0; u < L.out; ++u) {
         float acc = 0.0f;
@@ -71,13 +101,15 @@ inline void kan_layer_forward(const KanLayer& L, const float* x, float* y,
 }
 
 // Full KAN residual branch. x: input_dim floats -> returns scalar output.
-inline float kan_forward(const Model& m, Workspace& ws, const float* x_in) {
+inline float kan_forward(const Model& m, Workspace& ws, const float* x_in,
+                         bool use_recip = false) {
     const float* x = x_in;
     float* cur = ws.act_a.data();
     float* nxt = ws.act_b.data();
     for (size_t li = 0; li < m.kan.size(); ++li) {
         const KanLayer& L = m.kan[li];
-        kan_layer_forward(L, li == 0 ? x : cur, nxt, ws.silu_buf.data(), ws.bases.data());
+        kan_layer_forward(L, li == 0 ? x : cur, nxt, ws.silu_buf.data(),
+                          ws.bases.data(), use_recip);
         std::swap(cur, nxt);
     }
     return cur[0];

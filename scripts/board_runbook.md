@@ -33,6 +33,12 @@ This first verifies EVERY model against its golden vectors on the board
 runs the interleaved FP32 latency suite, then perf counters if perf exists.
 Results in `board_results/`.
 
+> The whole energy pipeline (loop binary, `energy_runs.csv` format,
+> `energy_log.csv` format, μJ/step aggregation) was validated end-to-end in a
+> dry run — see `scripts/simulate_energy_session.sh` and
+> `results/energy_board_simulated/`. Your session only produces the same two
+> CSVs with real numbers, into `results/energy_board/`.
+
 ## 3. Energy session (~45-60 min, attended — USB power meter)
 
 Follow `energy_protocol.md` step by step:

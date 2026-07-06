@@ -32,11 +32,35 @@ struct KanLayer {
     std::vector<float> grid;      // [in * (G+2k+1)], per-input-feature knots
     std::vector<float> base_w;    // [out*in]
     std::vector<float> spline_w;  // [out*in*(G+k)], spline_scaler pre-folded
+    // Precomputed knot-difference reciprocals for the optimized basis path
+    // (bench --recip): per feature, for r=1..k, R_r[j] = 1/(g[j+r]-g[j]),
+    // j = 0..(G+2k-r). Computed at load; the DEFAULT path uses divisions to
+    // match kan.py numerics op-for-op (golden-pinned).
+    std::vector<float> recip;     // [in * recip_stride()]
     Range silu_r, basis_r, act;
 
     uint32_t n_knots() const { return G + 2 * k + 1; }
     uint32_t n_bases() const { return G + k; }        // bases after recursion
     uint32_t n_bases0() const { return G + 2 * k; }   // order-0 (scratch size)
+    uint32_t recip_stride() const {                   // sum over r of (G+2k-r+1)
+        uint32_t s = 0;
+        for (uint32_t r = 1; r <= k; ++r) s += G + 2 * k - r + 1;
+        return s;
+    }
+    void precompute_recips() {
+        const uint32_t m = n_bases0();
+        recip.assign((size_t)in * recip_stride(), 0.0f);
+        for (uint32_t i = 0; i < in; ++i) {
+            const float* g = grid.data() + (size_t)i * n_knots();
+            float* R = recip.data() + (size_t)i * recip_stride();
+            size_t off = 0;
+            for (uint32_t r = 1; r <= k; ++r) {
+                for (uint32_t j = 0; j + r <= m; ++j)
+                    R[off + j] = 1.0f / (g[j + r] - g[j]);
+                off += m - r + 1;
+            }
+        }
+    }
 };
 
 struct Model {
@@ -172,6 +196,7 @@ inline Model load_model(const std::string& path) {
             l.silu_r = r.range();
             l.basis_r = r.range();
             l.act = r.range();
+            l.precompute_recips();
             m.kan.push_back(std::move(l));
         }
     }

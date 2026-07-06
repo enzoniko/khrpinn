@@ -1,0 +1,21 @@
+board,model,precision,p_idle_w,p_load_w,meter,notes
+SIMULATED,duffing_kan_configA,f32,4.20,4.840,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_kan_configF,f32,4.20,4.821,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_kan_deep,f32,4.20,4.944,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_kan_small,f32,4.20,4.840,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_kan_very_small,f32,4.20,4.803,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_kan_wide,f32,4.20,4.916,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_mlp_large,f32,4.20,5.094,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_mlp_medium,f32,4.20,4.842,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_mlp_small,f32,4.20,4.776,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,duffing_mlp_tiny,f32,4.20,4.758,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_configA,f32,4.20,4.840,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_configF,f32,4.20,4.821,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_deep,f32,4.20,4.944,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_small,f32,4.20,4.840,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_very_small,f32,4.20,4.803,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_kan_wide,f32,4.20,4.916,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_mlp_large,f32,4.20,5.094,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_mlp_medium,f32,4.20,4.842,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_mlp_small,f32,4.20,4.776,SIMULATED,synthetic dry-run - replace with real meter data
+SIMULATED,vdp_mlp_tiny,f32,4.20,4.758,SIMULATED,synthetic dry-run - replace with real meter data

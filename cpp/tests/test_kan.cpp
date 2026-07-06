@@ -70,6 +70,32 @@ TEST(kan_out_of_grid_input_uses_base_path_only) {
     CHECK_CLOSE(kan_forward(m, ws, x), expect, 1e-6);
 }
 
+TEST(kan_recip_basis_path_matches_division_path) {
+    // The bench-only reciprocal path must agree with the golden-pinned
+    // division path to float rounding (~1 ulp per op).
+    KanLayer l = make_layer(2, 1, 5, 3);
+    // Perturb knots (non-uniform, like a trained grid) and set random-ish weights
+    float bump = 0.017f;
+    for (auto& g : l.grid) { g += bump; bump = -bump * 0.9f; }
+    l.precompute_recips();
+    for (size_t i = 0; i < l.spline_w.size(); ++i)
+        l.spline_w[i] = 0.3f * (float)((i * 7) % 11) - 1.0f;
+    l.base_w = {0.5f, -0.7f};
+    Model m;
+    m.arch = Arch::KAN;
+    m.n_layers = 1;
+    m.kan = {l};
+    Workspace ws(m);
+    for (float x = -1.4f; x <= 1.4f; x += 0.0231f) {
+        for (float v = -1.3f; v <= 1.3f; v += 0.117f) {
+            float s[2] = {x, v};
+            float a = kan_forward(m, ws, s, false);
+            float b = kan_forward(m, ws, s, true);
+            CHECK_CLOSE(a, b, 1e-5);
+        }
+    }
+}
+
 TEST(kan_two_layer_composition) {
     // Composition sanity: layer1 sees layer0 output. With layer0 = base-only
     // identity-ish weights and layer1 base-only, result = silu chain.

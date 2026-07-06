@@ -1,0 +1,113 @@
+{
+  "slug": "duffing_kan_configA",
+  "system": "Duffing",
+  "arch": "kan",
+  "config_name": "KAN Config A (Baseline, TF)",
+  "recipe": "tf",
+  "model_kwargs": {
+    "layers_hidden": [
+      2,
+      8,
+      1
+    ],
+    "scale_base": 1.0,
+    "scale_spline": 1.0,
+    "grid_size": 5
+  },
+  "train_kwargs": {
+    "grid_update_freq": 20,
+    "early_stop_patience": 20,
+    "reg_entropy": 0.0,
+    "reg_activation": 0.0
+  },
+  "epochs": 100,
+  "n_seeds": 5,
+  "chosen_seed": 1,
+  "trained_ok": true,
+  "params": 240,
+  "flops_per_inference": 2322,
+  "exps_per_inference": 10,
+  "weight_bytes_f32": 1344,
+  "seed_metrics": [
+    {
+      "seed": 1,
+      "success": true,
+      "test_mse": 0.0010527352588491383,
+      "discovery_r2": 0.8849645816077806,
+      "symbolic_term": "x",
+      "symbolic_coef": -0.28060631014806486,
+      "symbolic_r2": 0.5978963210157318
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "test_mse": 0.0010159316404620238,
+      "discovery_r2": 0.5354037781655914,
+      "symbolic_term": "x",
+      "symbolic_coef": -0.3439731196377579,
+      "symbolic_r2": 0.850922693009006
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "test_mse": 0.00016955431201806515,
+      "discovery_r2": 0.9870657334826927,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.26990185361649566,
+      "symbolic_r2": 0.9897113549838555
+    },
+    {
+      "seed": 4,
+      "success": true,
+      "test_mse": 0.0002436530832549503,
+      "discovery_r2": 0.993832892387546,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.28143164412875754,
+      "symbolic_r2": 0.9940484492849448
+    },
+    {
+      "seed": 5,
+      "success": true,
+      "test_mse": 0.0010381090917275873,
+      "discovery_r2": 0.7150418756224874,
+      "symbolic_term": "x",
+      "symbolic_coef": -0.35535479512396806,
+      "symbolic_r2": 0.8701748120229389
+    }
+  ],
+  "fold_check_max_abs_err": 3.5762786865234375e-07,
+  "in_range": [
+    -1.0,
+    1.0
+  ],
+  "calibration": {
+    "layer0": {
+      "silu_range": [
+        -0.26894140243530273,
+        0.7310585975646973
+      ],
+      "basis_range": [
+        0.0,
+        0.8819124102592468
+      ],
+      "act_range": [
+        -1.0218746662139893,
+        0.7645711302757263
+      ]
+    },
+    "layer1": {
+      "silu_range": [
+        -0.27045178413391113,
+        0.5217015147209167
+      ],
+      "basis_range": [
+        0.0,
+        0.9138162732124329
+      ],
+      "act_range": [
+        -1.373443365097046,
+        1.6507136821746826
+      ]
+    }
+  }
+}

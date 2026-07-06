@@ -52,6 +52,10 @@ int main(int argc, char** argv) {
     long reps = args.getl("--reps", 30);
     long iters = args.getl("--iters", 100000);
     long warmup = args.getl("--warmup", 10000);
+    // --recip: FP32 KAN with precomputed knot-difference reciprocals instead
+    // of divisions (deployment-optimized basis path; anti-strawman variant).
+    const bool recip = args.has("--recip");
+    if (recip) qmode = "recip_bases";  // distinguishes rows in the CSV
 
     Model m = load_model(mpath);
     Workspace ws(m);
@@ -70,8 +74,9 @@ int main(int argc, char** argv) {
         const float* s = &buf[2 * (idx & (NBUF - 1))];
         ++idx;
         if (mode == "residual") {
-            checksum += (bits == 0) ? residual_forward(m, ws, s)
-                                    : residual_forward_quant(*qm, ws, s);
+            if (bits != 0) checksum += residual_forward_quant(*qm, ws, s);
+            else if (recip && m.arch == Arch::KAN) checksum += kan_forward(m, ws, s, true);
+            else checksum += residual_forward(m, ws, s);
         } else {
             float out[2];
             if (bits == 0) hrpinn_step(m, ws, s, out);

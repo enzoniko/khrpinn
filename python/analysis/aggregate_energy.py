@@ -9,7 +9,9 @@ import pandas as pd
 
 from common_analysis import RESULTS, load_manifests, md_table, read_csv_optional
 
-NRG = os.path.join(RESULTS, 'energy_board')
+# KHRPINN_ENERGY_DIR overrides the source dir (used by the dry-run validation
+# against results/energy_board_simulated; real sessions use energy_board).
+NRG = os.environ.get('KHRPINN_ENERGY_DIR', os.path.join(RESULTS, 'energy_board'))
 RUN_COLS = ['host', 'compiler', 'arch', 'precision', 'qmode', 'system', 'model',
             'params', 'mode', 'loop_seconds', 'steps', 'elapsed_s',
             'steps_per_sec', 'checksum']

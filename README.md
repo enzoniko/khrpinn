@@ -25,6 +25,7 @@ data/goldens/       golden vectors + reference trajectories (committed)
 scripts/            experiment runners, board runbook, energy protocol
 results/            all experiment outputs; SUMMARY.md is the master index
 deploy/             RISC-V tarball (built by `make -C cpp deploy`)
+paper/              SBESC 2026 draft (sbesc2026.tex; red \tbd{} = pending board data)
 ```
 
 ## Quickstart (PC, WSL Ubuntu)
@@ -39,8 +40,11 @@ make -C cpp -j8 all && make -C cpp test
 
 # 3. PC experiments
 sh scripts/run_bench_pc.sh          # E1 latency
+sh scripts/run_bench_recip.sh       # E1b anti-strawman: reciprocal KAN basis path
 sh scripts/run_perf_pc.sh           # E2 counters (skips if perf unavailable)
 sh scripts/run_dependability.sh     # E4+E5 quantization dependability
+sh scripts/simulate_energy_session.sh  # H2 pipeline dry-run (synthetic meter data,
+                                       # quarantined in results/energy_board_simulated/)
 
 # 4. Aggregate everything
 python python/analysis/build_summary.py   # -> results/SUMMARY.md
