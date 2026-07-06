@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+cpp/build/
+deploy/*.tar.gz
+*.pt

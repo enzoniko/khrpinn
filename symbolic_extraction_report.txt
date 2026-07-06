@@ -1,0 +1,26 @@
+Symbolic Extraction Report
+======================================================================
+
+Duffing System - KAN Results:
+----------------------------------------------------------------------
+Seed 1: Discovered -0.223435 * x (R² = 0.518378)
+Seed 2: Discovered -0.275166 * x (R² = 0.724505)
+Seed 3: Discovered -0.395359 * x (R² = 0.784012)
+Seed 4: Discovered -0.279373 * x^3 (R² = 0.993072)
+Seed 5: Discovered -0.322577 * x (R² = 0.811044)
+
+Expected: -0.3 * x^3
+Note: The true residual is -0.3x³. Best candidate should be 'x^3' with coefficient ≈ -0.3
+
+VdP System - KAN Results:
+----------------------------------------------------------------------
+Seed 1: Discovered -0.686415 * x (R² = -0.184432)
+Seed 2: Discovered 0.775110 * v (R² = -0.889988)
+Seed 3: Discovered 0.749345 * v (R² = -0.769585)
+Seed 4: Discovered 0.818604 * v (R² = -0.892328)
+Seed 5: Discovered 0.806606 * v (R² = -0.905562)
+
+Expected: (1-x²)v = v - x²v
+Note: The true residual is (1-x²)v. Best candidate should be 'x^2v' with coefficient ≈ -1.0
+      (or 'v' with coefficient ≈ 1.0, but 'x^2v' captures the nonlinearity better)
+
