@@ -1,0 +1,29 @@
+{
+  "slug": "duffing_kan_small",
+  "n_residual": 256,
+  "n_step": 64,
+  "traj_steps": 500,
+  "traj_ics": [
+    [
+      1.0,
+      0.0
+    ],
+    [
+      -1.5,
+      1.0
+    ],
+    [
+      0.5,
+      -1.2
+    ]
+  ],
+  "traj_valid": [
+    true,
+    true,
+    true
+  ],
+  "np_torch_max_rel_err": 1.1893842224852611e-07,
+  "quant_out_lsb_b8": 0.013072830624878407,
+  "quant_out_lsb_b16": 5.086704550194554e-05,
+  "trained_ok": true
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "vdp_mlp_small",
+  "n_residual": 256,
+  "n_step": 64,
+  "traj_steps": 500,
+  "traj_ics": [
+    [
+      1.0,
+      0.0
+    ],
+    [
+      -1.5,
+      1.0
+    ],
+    [
+      0.5,
+      -1.2
+    ]
+  ],
+  "traj_valid": [
+    true,
+    true,
+    true
+  ],
+  "np_torch_max_rel_err": 0.0,
+  "quant_out_lsb_b8": 0.02525758184492588,
+  "quant_out_lsb_b16": 9.827852773014456e-05,
+  "trained_ok": true
+}

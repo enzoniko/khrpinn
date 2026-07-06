@@ -1,0 +1,101 @@
+{
+  "slug": "duffing_mlp_small",
+  "system": "Duffing",
+  "arch": "mlp",
+  "config_name": "Mlp Small",
+  "recipe": "bptt",
+  "model_kwargs": {
+    "input_dim": 2,
+    "hidden_dims": [
+      16,
+      16
+    ],
+    "output_dim": 1
+  },
+  "train_kwargs": {
+    "grid_update_freq": 0,
+    "early_stop_patience": 50,
+    "reg_entropy": 0.0,
+    "reg_activation": 0.0
+  },
+  "epochs": 100,
+  "n_seeds": 5,
+  "chosen_seed": 1,
+  "trained_ok": true,
+  "params": 337,
+  "flops_per_inference": 673,
+  "exps_per_inference": 0,
+  "weight_bytes_f32": 1348,
+  "seed_metrics": [
+    {
+      "seed": 1,
+      "success": true,
+      "test_mse": 0.011785511761831912,
+      "discovery_r2": 0.9395518630866053,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.23527577412421757,
+      "symbolic_r2": 0.9395256786195568
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "test_mse": 0.00980609262330745,
+      "discovery_r2": 0.8515007308954318,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.1618798874475451,
+      "symbolic_r2": 0.8692851209939045
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "test_mse": 0.002025021120425663,
+      "discovery_r2": 0.9811187551453955,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.268775048600082,
+      "symbolic_r2": 0.9779365375368017
+    },
+    {
+      "seed": 4,
+      "success": true,
+      "test_mse": 0.0026683367652594824,
+      "discovery_r2": 0.9782856808601207,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.26856380854446016,
+      "symbolic_r2": 0.9775072898590824
+    },
+    {
+      "seed": 5,
+      "success": true,
+      "test_mse": 0.010639285248680607,
+      "discovery_r2": 0.9231776956694135,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.18872640907412974,
+      "symbolic_r2": 0.9307677169907692
+    }
+  ],
+  "fold_check_max_abs_err": 0.0,
+  "in_range": [
+    -1.0,
+    1.0
+  ],
+  "calibration": {
+    "layer0": {
+      "act_range": [
+        0.0,
+        2.5231122970581055
+      ]
+    },
+    "layer1": {
+      "act_range": [
+        0.0,
+        5.5019989013671875
+      ]
+    },
+    "layer2": {
+      "act_range": [
+        -1.4548218250274658,
+        2.671640634536743
+      ]
+    }
+  }
+}

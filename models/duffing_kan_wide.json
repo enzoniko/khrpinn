@@ -1,0 +1,113 @@
+{
+  "slug": "duffing_kan_wide",
+  "system": "Duffing",
+  "arch": "kan",
+  "config_name": "Kan Wide",
+  "recipe": "bptt",
+  "model_kwargs": {
+    "layers_hidden": [
+      2,
+      16,
+      1
+    ],
+    "scale_base": 0.1,
+    "scale_spline": 1.0,
+    "grid_size": 5
+  },
+  "train_kwargs": {
+    "grid_update_freq": 5,
+    "early_stop_patience": 50,
+    "reg_entropy": 0.0,
+    "reg_activation": 0.0
+  },
+  "epochs": 100,
+  "n_seeds": 5,
+  "chosen_seed": 3,
+  "trained_ok": true,
+  "params": 480,
+  "flops_per_inference": 4266,
+  "exps_per_inference": 18,
+  "weight_bytes_f32": 2592,
+  "seed_metrics": [
+    {
+      "seed": 1,
+      "success": true,
+      "test_mse": 0.012107783502005986,
+      "discovery_r2": 0.9615513716145069,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.23209806216041395,
+      "symbolic_r2": 0.9492898119270887
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "test_mse": 0.00993679274142778,
+      "discovery_r2": 0.5086273448015346,
+      "symbolic_term": "x",
+      "symbolic_coef": -0.5552576753954732,
+      "symbolic_r2": 0.5970520617050037
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "test_mse": 0.0020351908708562405,
+      "discovery_r2": 0.9283392010978433,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.28195391408422615,
+      "symbolic_r2": 0.9296545993919705
+    },
+    {
+      "seed": 4,
+      "success": true,
+      "test_mse": 0.0026207627512576438,
+      "discovery_r2": 0.9373350211851929,
+      "symbolic_term": "x^3",
+      "symbolic_coef": -0.3166557161684957,
+      "symbolic_r2": 0.9417596761259232
+    },
+    {
+      "seed": 5,
+      "success": true,
+      "test_mse": 0.0126595029812961,
+      "discovery_r2": -63.8424423708166,
+      "symbolic_term": "v",
+      "symbolic_coef": -3.1921132021334184,
+      "symbolic_r2": 0.15344535058696118
+    }
+  ],
+  "fold_check_max_abs_err": 2.384185791015625e-07,
+  "in_range": [
+    -1.0,
+    1.0
+  ],
+  "calibration": {
+    "layer0": {
+      "silu_range": [
+        -0.26894140243530273,
+        0.7310585975646973
+      ],
+      "basis_range": [
+        0.0,
+        0.8261913657188416
+      ],
+      "act_range": [
+        -55.942440032958984,
+        93.23974609375
+      ]
+    },
+    "layer1": {
+      "silu_range": [
+        -0.27846455574035645,
+        93.23974609375
+      ],
+      "basis_range": [
+        0.0,
+        0.9094898700714111
+      ],
+      "act_range": [
+        -2.4455323219299316,
+        2.3295304775238037
+      ]
+    }
+  }
+}

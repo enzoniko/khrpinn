@@ -1,0 +1,128 @@
+{
+  "slug": "vdp_kan_deep",
+  "system": "VdP",
+  "arch": "kan",
+  "config_name": "Kan Deep",
+  "recipe": "bptt",
+  "model_kwargs": {
+    "layers_hidden": [
+      2,
+      8,
+      8,
+      1
+    ],
+    "scale_base": 0.1,
+    "scale_spline": 1.0,
+    "grid_size": 5
+  },
+  "train_kwargs": {
+    "grid_update_freq": 5,
+    "early_stop_patience": 50,
+    "reg_entropy": 0.0,
+    "reg_activation": 0.0
+  },
+  "epochs": 100,
+  "n_seeds": 5,
+  "chosen_seed": 2,
+  "trained_ok": true,
+  "params": 880,
+  "flops_per_inference": 4986,
+  "exps_per_inference": 18,
+  "weight_bytes_f32": 4032,
+  "seed_metrics": [
+    {
+      "seed": 1,
+      "success": true,
+      "test_mse": 0.002967746762988099,
+      "discovery_r2": 0.8157510432121368,
+      "symbolic_term": "v",
+      "symbolic_coef": 0.8397554100862614,
+      "symbolic_r2": -0.9669596605850392
+    },
+    {
+      "seed": 2,
+      "success": true,
+      "test_mse": 0.001992319465352921,
+      "discovery_r2": 0.7645278415532384,
+      "symbolic_term": "v",
+      "symbolic_coef": 0.8052405587700154,
+      "symbolic_r2": -0.8372328056783152
+    },
+    {
+      "seed": 3,
+      "success": true,
+      "test_mse": 0.007957755958705093,
+      "discovery_r2": 0.6270704987648832,
+      "symbolic_term": "x^2v",
+      "symbolic_coef": -1.156848652310739,
+      "symbolic_r2": 0.35820437984595466
+    },
+    {
+      "seed": 4,
+      "success": true,
+      "test_mse": 0.01830535473272903,
+      "discovery_r2": 0.7065717226670413,
+      "symbolic_term": "v",
+      "symbolic_coef": 0.9292404033150041,
+      "symbolic_r2": -0.9182671249859187
+    },
+    {
+      "seed": 5,
+      "success": true,
+      "test_mse": 0.015689867001128732,
+      "discovery_r2": 0.801671712972837,
+      "symbolic_term": "v",
+      "symbolic_coef": 0.884028914755941,
+      "symbolic_r2": -0.9114347558160836
+    }
+  ],
+  "fold_check_max_abs_err": 7.808208465576172e-06,
+  "in_range": [
+    -0.9995410442352295,
+    0.9817047119140625
+  ],
+  "calibration": {
+    "layer0": {
+      "silu_range": [
+        -0.26890820264816284,
+        0.7141374945640564
+      ],
+      "basis_range": [
+        0.0,
+        0.7015860080718994
+      ],
+      "act_range": [
+        -1.7788351774215698,
+        1.1506495475769043
+      ]
+    },
+    "layer1": {
+      "silu_range": [
+        -0.27846455574035645,
+        0.8740673661231995
+      ],
+      "basis_range": [
+        0.0,
+        0.7642797231674194
+      ],
+      "act_range": [
+        -3.904529571533203,
+        3.0938756465911865
+      ]
+    },
+    "layer2": {
+      "silu_range": [
+        -0.27846452593803406,
+        2.9597232341766357
+      ],
+      "basis_range": [
+        0.0,
+        0.7858175039291382
+      ],
+      "act_range": [
+        -2.9859228134155273,
+        4.519941806793213
+      ]
+    }
+  }
+}

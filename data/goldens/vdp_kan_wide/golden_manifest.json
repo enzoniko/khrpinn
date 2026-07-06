@@ -1,0 +1,29 @@
+{
+  "slug": "vdp_kan_wide",
+  "n_residual": 256,
+  "n_step": 64,
+  "traj_steps": 500,
+  "traj_ics": [
+    [
+      1.0,
+      0.0
+    ],
+    [
+      -1.5,
+      1.0
+    ],
+    [
+      0.5,
+      -1.2
+    ]
+  ],
+  "traj_valid": [
+    true,
+    true,
+    true
+  ],
+  "np_torch_max_rel_err": 1.200576252589718e-07,
+  "quant_out_lsb_b8": 0.029593059793114662,
+  "quant_out_lsb_b16": 0.00011514809011714533,
+  "trained_ok": true
+}
