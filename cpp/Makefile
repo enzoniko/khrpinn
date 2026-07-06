@@ -69,6 +69,7 @@ test-riscv: $(RBUILD)/khrpinn_tests
 	cd $(REPO) && qemu-riscv64 ./cpp/$(RBUILD)/khrpinn_tests
 
 deploy: riscv
+	rm -rf $(REPO)/deploy/khrpinn_riscv
 	mkdir -p $(REPO)/deploy/khrpinn_riscv/bin
 	cp $(RISCV_BINS) $(REPO)/deploy/khrpinn_riscv/bin/
 	cp -r $(REPO)/models $(REPO)/deploy/khrpinn_riscv/models
