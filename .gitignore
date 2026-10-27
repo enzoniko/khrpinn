@@ -4,3 +4,26 @@ __pycache__/
 cpp/build/
 deploy/*.tar.gz
 *.pt
+
+# Editor configuration
+.vscode/
+.idea/
+
+# Local recovery files
+recovery/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+*Zone.Identifier
